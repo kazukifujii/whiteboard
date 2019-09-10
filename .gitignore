@@ -18,5 +18,3 @@
 .byebug_history
 
 /config/master.key
-
-app/assets/fonts/*
