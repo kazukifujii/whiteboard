@@ -4,6 +4,6 @@
       input data-main-color="#F7B3D7" data-sub-color="#EBB2D0" data-shadow-color="#EBB2D0" data-shadow="#F7B3D7" class="color-button" type="button" name="radio" value="Pink"
       input data-main-color="#ffffcc" data-sub-color="#F6F6C8" data-shadow-color="#F6F6C8" data-shadow="#ffffcc" class="color-button" type="button" name="radio" value="Yellow"
       input data-main-color="#B2D7FD" data-sub-color="#BAD2EB" data-shadow-color="#BAD2EB" data-shadow="#B2D7FD" class="color-button" type="button" name="radio" value="Blue"
-      input class="del-btn" type="button" value="×"
+      input class="del-btn" type="button" value="#{message.id}" data-behavior="room_delete"
       div.content
         p= simple_format(message.content)
