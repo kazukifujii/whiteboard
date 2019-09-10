@@ -18,3 +18,9 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       App.room.speak event.target.value
       event.target.value = ''
       event.preventDefault()
+
+  $ ->
+    $('#messages_index').click ->
+      $('<div class="sticky">Drag & Double Click!</div>').appendTo('body').draggable().dblclick ->
+        $(this).wrapInner('<textarea></textarea>').find('textarea').focus().select().blur ->
+          $(this).parent().html $(this).val()

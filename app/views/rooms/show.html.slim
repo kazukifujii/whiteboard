@@ -1,23 +1,5 @@
 h1 チャットルーム
 
-javascript:
-  $(function() {
-    $('#new').click(function() {
-      $('<div class="sticky">Drag & Double Click!</div>')
-        .appendTo('body')
-        .draggable()
-        .dblclick(function() {
-          $(this).wrapInner('<textarea></textarea>')
-            .find('textarea')
-            .focus()
-            .select()
-            .blur(function() {
-              $(this).parent().html($(this).val());
-            });
-        });
-    });
-  });
-
 form
   input type="text" data-behavior="room_speak"
 
