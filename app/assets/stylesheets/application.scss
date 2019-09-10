@@ -1,8 +1,13 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 @import "rooms";
+@import "font-awesome";
 
 @font-face{
   font-family: 'tanuki';
   src: font-url('TanukiMagic.ttf') format('truetype');
+}
+
+body {
+  background: linear-gradient(to left, white, #fafafa);
 }

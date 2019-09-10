@@ -6,7 +6,7 @@
   flex-wrap: wrap;
 }
 .message{
-  padding: 10px; 
+  padding: 20px; 
 }
 .note {
   padding: 10px;
@@ -17,6 +17,7 @@
   cursor: pointer;
   background: linear-gradient(to right, #ffffcc 0%, #F6F6C8 0.5%, #F6F6C8 13%, #ffffcc 16%);
   font-family: 'tanuki';
+  position: relative;
 }
 .color-button {
   display: inline-block;
@@ -29,5 +30,27 @@
   transform: translateY(2px);  
 }
 .text{
-  margin-top: 20px;   
+  margin-top: 20px;
+  margin-right: 20px;
+}
+.remove-icon{
+  position: absolute;
+  top: 6%;
+  right: 6%;
+}
+.fa-circle{
+  color: black;
+  margin: 2px
+}
+.pink:hover{
+  color: #F7B3D7;
+}
+.yellow:hover{
+  color: #ffffcc; 
+}
+.blue:hover{
+  color: #B2D7FD;
+}
+.green:hover{
+  color: #90e290;
 }

@@ -5,32 +5,33 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   disconnected: () ->
 
   received: (data) ->
-    message = $(data['message'])
-    message.addClass('.note')
-    $('#messages_index').append(message)
-  #  削除ボタン押してからリロードすると消えるので、room_channel.rb の delete までは見に行っている
-  #  このアクションが received: (data) で取れない。speakの場合しかreceivedしない原因が不明
-  #  データを受け取るのはreceivedしかないのか。
-  #  speak を全部speekとかにして動かないなら、デフォルトで決まっていて一意でしか取れなさそう
-  #  message = "message-" + $(data['message'])
-  #  $(message).remove();
+    if data['message'] != undefined
+      message = $(data['message'])
+      message.attr('id', 'note')
+      $('#messages_index').append(message)
+    else
+      $('.message_' + data['id']).remove()
 
   speak: (message) ->
     @perform 'speak', message: message
 
-  delete: (message) ->
-    @perform 'delete', message: message
+  remove: (message) ->
+    @perform 'remove', message: message
 
   # 送信クリック - 付箋作成
-  $(document).on 'click', '[data-behavior~=room_speak]', (event) ->
+  $(document).on 'click', '[data-behavior~=room_speak]', (e) ->
     App.room.speak $('.text').val();
     $('.text').val('');
-    event.preventDefault()
+    e.preventDefault()
 
   # 削除クリック - 付箋削除
-  $(document).on 'click', '[data-behavior~=room_delete]', (event) ->
-    App.room.delete $('.del-btn').val();
-    event.preventDefault()
+  $(document).on 'click', '.remove-icon', (e) ->
+    if !confirm('本当に削除しますか？')
+      return false;
+    else
+      id = $(e.target).data('message-id')
+      App.room.remove id
+      e.preventDefault()
 
   # 付箋ホールド - ドラッグ
   $ ->
@@ -39,10 +40,10 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   # 付箋ダブルクリック - 編集
   $ ->
     $('.note').dblclick ->
-      $(this).wrapInner('<textarea class="text" name="text" cols="23" rows="9"></textarea>').find('textarea').focus().select().blur ->
+      $(this).wrapInner('<textarea class="text" name="text" cols="23" rows="8"></textarea>').find('textarea').focus().select().blur ->
         $(this).parent().html $(this).val()
 
-  # 付箋色変更
+  # 付箋の色変更
   $ ->
     $('.note').children('.color-button').click ->
       main_color = $(this).data('main-color')

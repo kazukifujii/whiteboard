@@ -2,7 +2,11 @@ class MessageBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(message)
-    ActionCable.server.broadcast 'room_channel', message: render_message(message)
+    if message.is_a?(ActiveRecord::Base)
+      ActionCable.server.broadcast 'room_channel', message: render_message(message)
+    else
+      ActionCable.server.broadcast 'room_channel', id: message
+    end
   end
 
   private
