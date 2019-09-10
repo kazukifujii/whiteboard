@@ -7,7 +7,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   received: (data) ->
     # alert data['message']
     message = $(data['message'])
-    message.css('background', '#f00')
+    message.addClass('.note')
     $('#messages_index').append(message)
 
   speak: (message) ->
