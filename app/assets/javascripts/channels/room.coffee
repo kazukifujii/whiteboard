@@ -26,19 +26,22 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 
   # 削除クリックで付箋を消す処理
   $ ->
-    $('#btn').click ->
+    $('#del-btn').click ->
       App.room.delete $('.btn').val();
       event.preventDefault()
 
   # ドラッグ可能にする処理
   # ダブルクリックで編集可能
   $ ->
-    $('.message').draggable()
+    $('.note').draggable()
   #  $('.message').draggable().dblclick ->
   #    $(this).wrapInner('<textarea></textarea>').find('textarea').focus().select().blur ->
   #      $(this).parent().html $(this).val()
 
   $ ->
     $('.note').children('.color-button').click ->
-      color = $(this).data('color')
-      $(this).parents('.note').css 'background-color', color
+      main_color = $(this).data('main-color')
+      sub_color = $(this).data('sub-color')
+      shadow_color = $(this).data('shadow-color')
+      shadow = $(this).data('shadow')
+      $(this).parents('.note').css 'background', "linear-gradient(to right, #{shadow} 0%, #{shadow_color} 0.5%, #{sub_color} 13%, #{main_color} 16%)"
