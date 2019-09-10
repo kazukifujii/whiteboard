@@ -6,7 +6,10 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 
   received: (data) ->
     # alert data['message']
-    $('#messages_index').append(data['message'])
+    # console.log data
+    message = $(data['message'])
+    message.css('background', '#f00')
+    $('#messages_index').append(message)
 
   speak: (message) ->
     @perform 'speak', message: message
@@ -20,7 +23,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       event.preventDefault()
 
   $ ->
-    $('#messages_index').click ->
-      $('<div class="sticky">Drag & Double Click!</div>').appendTo('body').draggable().dblclick ->
-        $(this).wrapInner('<textarea></textarea>').find('textarea').focus().select().blur ->
-          $(this).parent().html $(this).val()
+    $('.message').draggable().dblclick ->
+      $(this).wrapInner('<textarea></textarea>').find('textarea').focus().select().blur ->
+        $(this).parent().html $(this).val()
