@@ -1,0 +1,14 @@
+// Place all the styles related to the rooms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#messages_index {
+  height: 400px;
+}
+.note {
+  background-color: aliceblue;
+  padding: 10px;
+  cursor: pointer;
+  width: 90%;
+  height: 5rem;
+}
