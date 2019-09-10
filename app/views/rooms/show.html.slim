@@ -1,11 +1,11 @@
-div.container
+div.container-fluid
   div.row
-    div class="col-md-3"
+    div class="col-md-2"
       form
         textarea class="text" name="text" cols="25" rows="10"
         input class="a" type="button" value="送信" data-behavior="room_speak"
 
-    div class="col-md-9"
+    div class="col-md-10"
       #messages_index
         - @messages.each do |message|
           = render 'messages/message', message: message
