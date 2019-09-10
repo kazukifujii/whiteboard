@@ -6,7 +6,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 
   received: (data) ->
     # alert data['message']
-    # console.log data
     message = $(data['message'])
     message.css('background', '#f00')
     $('#messages_index').append(message)
@@ -14,15 +13,32 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   speak: (message) ->
     @perform 'speak', message: message
 
-  # returnキーでデータを受け取る処理
+  delete: (message) ->
+    @perform 'delete', message: message
+
+  # returnでデータ受け取る処理
   $(document).on 'keypress', '[data-behavior~=room_speak]', (event) ->
     if event.keyCode is 13
-      # コンソールで接続確認で使ったコード
+      # speak呼び出してtext内の値を渡す
       App.room.speak event.target.value
       event.target.value = ''
       event.preventDefault()
 
+  # 削除クリックで付箋を消す処理
   $ ->
-    $('.message').draggable().dblclick ->
-      $(this).wrapInner('<textarea></textarea>').find('textarea').focus().select().blur ->
-        $(this).parent().html $(this).val()
+    $('#btn').click ->
+      App.room.delete $('.btn').val();
+      event.preventDefault()
+
+  # ドラッグ可能にする処理
+  # ダブルクリックで編集可能
+  $ ->
+    $('.message').draggable()
+  #  $('.message').draggable().dblclick ->
+  #    $(this).wrapInner('<textarea></textarea>').find('textarea').focus().select().blur ->
+  #      $(this).parent().html $(this).val()
+
+  $ ->
+    $('.note').children('.color-button').click ->
+      color = $(this).data('color')
+      $(this).parents('.note').css 'background-color', color

@@ -2,4 +2,8 @@
   div class="message-#{message.id}"
     div.note
       p= message.content
-      = link_to '削除', '#', class: 'btn btn-default'
+      #btn
+        p= '削除'
+      input data-color="#f08080" class="color-button" type="button" name="radio" value="Pink"
+      input data-color="#ffcc66" class="color-button" type="button" name="radio" value="Yellow"
+      input data-color="#99ccff" class="color-button" type="button" name="radio" value="Blue"
