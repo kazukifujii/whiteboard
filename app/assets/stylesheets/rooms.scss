@@ -1,11 +1,9 @@
-// Place all the styles related to the rooms controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 #messages_index {
   height: 400px;
   padding: 10px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .message{
   padding: 10px; 
@@ -18,4 +16,28 @@
   background-color: #99ccff;
   cursor: pointer;
   background: linear-gradient(to right, #ffffcc 0%, #F6F6C8 0.5%, #F6F6C8 13%, #ffffcc 16%);
+  font-family: 'tanuki';
+}
+.color-button {
+  display: inline-block;
+  text-decoration: none;
+}
+.color-button:active {
+  transform: translateY(2px);
+}
+.del-btn:active {
+  transform: translateY(2px);  
+}
+
+html,body{
+  height:100%;
+  width:100%;
+  margin-left : auto;
+  margin-right : auto;
+  text-align : center;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
 }

@@ -1,7 +1,11 @@
-form
-  input type="text" data-behavior="room_speak"
-  textarea name="text" cols="25" rows="10" data-behavior="room_speak"
+div.container
+  div.row
+    div class="col-md-3"
+      form
+        textarea class="text" name="text" cols="25" rows="10"
+        input class="a" type="button" value="送信" data-behavior="room_speak"
 
-#messages_index
-  - @messages.each do |message|
-    = render 'messages/message', message: message
+    div class="col-md-9"
+      #messages_index
+        - @messages.each do |message|
+          = render 'messages/message', message: message

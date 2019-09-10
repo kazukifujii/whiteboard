@@ -5,7 +5,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   disconnected: () ->
 
   received: (data) ->
-    # alert data['message']
     message = $(data['message'])
     message.addClass('.note')
     $('#messages_index').append(message)
@@ -16,28 +15,29 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   delete: (message) ->
     @perform 'delete', message: message
 
-  # returnでデータ受け取る処理
-  $(document).on 'keypress', '[data-behavior~=room_speak]', (event) ->
-    if event.keyCode is 13
-      # speak呼び出してtext内の値を渡す
-      App.room.speak event.target.value
-      event.target.value = ''
-      event.preventDefault()
+  # 送信をクリックで付箋作成
+  $(document).on 'click', '[data-behavior~=room_speak]', (event) ->
+    App.room.speak $('.text').val();
+    $('.text').val('');
+    event.preventDefault()
 
-  # 削除クリックで付箋を消す処理
+  # 付箋を消す
   $ ->
     $('#del-btn').click ->
       App.room.delete $('.btn').val();
       event.preventDefault()
 
-  # ドラッグ可能にする処理
-  # ダブルクリックで編集可能
+  # 付箋をドラッグ
   $ ->
     $('.note').draggable()
-  #  $('.message').draggable().dblclick ->
-  #    $(this).wrapInner('<textarea></textarea>').find('textarea').focus().select().blur ->
-  #      $(this).parent().html $(this).val()
 
+  # 付箋をダブルクリックで編集
+  $ ->
+    $('.note').dblclick ->
+      $(this).wrapInner('<textarea class="text" name="text" cols="23" rows="9"></textarea>').find('textarea').focus().select().blur ->
+        $(this).parent().html $(this).val()
+
+  # 付箋の色を変える
   $ ->
     $('.note').children('.color-button').click ->
       main_color = $(this).data('main-color')
