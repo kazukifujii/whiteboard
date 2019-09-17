@@ -6,6 +6,6 @@ div.container-fluid
         input class="a" type="button" value="送信" data-behavior="room_speak"
 
     div class="col-md-10"
-      #messages_index
-        - @messages.each do |message|
-          = render 'messages/message', message: message
+      #sticky_notes_index
+        - @sticky_notes.each do |sticky_note|
+          = render 'sticky_notes/sticky_note', sticky_note: sticky_note

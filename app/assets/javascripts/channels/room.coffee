@@ -5,18 +5,18 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   disconnected: () ->
 
   received: (data) ->
-    if data['message'] != undefined
-      message = $(data['message'])
-      message.attr('id', 'note')
-      $('#messages_index').append(message)
+    if data['sticky_note'] != undefined
+      sticky_note = $(data['sticky_note'])
+      sticky_note.attr('id', 'note')
+      $('#sticky_notes_index').append(sticky_note)
     else
-      $('.message_' + data['id']).remove()
+      $('.sticky_note_' + data['id']).remove()
 
-  speak: (message) ->
-    @perform 'speak', message: message
+  speak: (sticky_note) ->
+    @perform 'speak', sticky_note: sticky_note
 
-  remove: (message) ->
-    @perform 'remove', message: message
+  remove: (sticky_note) ->
+    @perform 'remove', sticky_note: sticky_note
 
   # 送信クリック - 付箋作成
   $(document).on 'click', '[data-behavior~=room_speak]', (e) ->
@@ -29,7 +29,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
     if !confirm('本当に削除しますか？')
       return false;
     else
-      id = $(e.target).data('message-id')
+      id = $(e.target).data('sticky_note-id')
       App.room.remove id
       e.preventDefault()
 

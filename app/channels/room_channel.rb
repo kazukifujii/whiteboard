@@ -7,10 +7,10 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    Message.create! content: data['message']
+    StickyNote.create! content: data['sticky_note']
   end
 
   def remove(data)
-    Message.destroy data['message']
+    StickyNote.destroy data['sticky_note']
   end
 end
