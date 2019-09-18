@@ -10,7 +10,9 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       sticky_note.attr('id', 'note')
       $('#sticky_notes_index').append(sticky_note)
     else
-      $('.sticky_note_' + data['id']).remove()
+      # !isNaNで動いてほしい。。
+      if isNaN(data['sticky_note'])
+        $('.sticky_note_' + data['id']).remove()
 
   speak: (sticky_note) ->
     @perform 'speak', sticky_note: sticky_note
@@ -33,16 +35,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       App.room.remove id
       e.preventDefault()
 
-  # 付箋ホールド - ドラッグ
-  $ ->
-    $('.note').draggable()
-
-  # 付箋ダブルクリック - 編集
-  $ ->
-    $('.note').dblclick ->
-      $(this).wrapInner('<textarea class="text" name="text" cols="23" rows="8"></textarea>').find('textarea').focus().select().blur ->
-        $(this).parent().html $(this).val()
-
   # 付箋の色変更
   $ ->
     $('.note').children('.color-button').click ->
@@ -51,3 +43,13 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       shadow_color = $(this).data('shadow-color')
       shadow = $(this).data('shadow')
       $(this).parents('.note').css 'background', "linear-gradient(to right, #{shadow} 0%, #{shadow_color} 0.5%, #{sub_color} 13%, #{main_color} 16%)"
+
+  # 付箋ホールド - ドラッグ
+  $ ->
+    $('.note').draggable()
+
+  # 付箋ダブルクリック - 編集
+  # $ ->
+  #  $('.note').dblclick ->
+  #    $(this).wrapInner('<textarea class="text" name="text" cols="23" rows="8"></textarea>').find('textarea').focus().select().blur ->
+  #      $(this).parent().html $(this).val()
